@@ -110,22 +110,21 @@ prompt_dir() {
 prompt_status() {
   local symbols
   symbols=()
-  if [[ $RETVAL -eq 0 ]] ; then
-    symbols+="%{%F{green}%}%?%f"
-  else
-    symbols+="%{%F{red}%}%?%f"
-  fi
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}$LIGHTNING%f"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}$GEAR%f"
 
   [[ -n "$symbols" ]] && prompt_segment $PRIMARY_FG default "$symbols "
 }
 
-# Show piped status codes
-prompt_pipe_status() {
-  local pstat="${#pipestatus:#0}"
-  echo FOO $pipestatus FOOOBAR
-  prompt_segment red default "$pstat"
+# Show retval & signal
+prompt_retval_status() {
+  local retcol='green'
+  if [[ $RETVAL -ne 0 ]] ; then
+    local signal="$(builtin kill -l $[$RETVAL - 128] 2> /dev/null)"
+    test "$signal" && signal=" ($signal)"
+    retcol="red"
+  fi
+  prompt_segment $PRIMARY_FG default "[%{%F{$retcol}%}Exit: $RETVAL$signal%f] "
 }
 
 # Jobs
@@ -141,6 +140,7 @@ prompt_jobs() {
 prompt_fbox_main() {
   RETVAL=$?
   CURRENT_BG='NONE'
+  prompt_retval_status
   prompt_status
   prompt_jobs
   prompt_context
