@@ -100,18 +100,18 @@ prompt_git() {
 
 prompt_fbscm() {
   local color='green'
-  local si=$(oxscm %s)
+  local si=$(_dotfiles_scm_info %s)
   [[ -z $si ]] && return
   local parts=(${(@s/|/)si})
   local branch=$parts[1]
-  local flag=${parts[2]}
-  if [[ $flag == "UPDATE_NEEDED" ]] ; then
+  local flag=$parts[2]
+  if [[ "x$flag" = "xUPDATE_NEEDED" ]] ; then
     flag=" $PLUSMINUS"
     color='yellow'
   elif [[ -n $flag ]] ; then
     flag=" $flag"
   fi
-  prompt_segment $color $PRIMARY_FG "$BRANCH $branch$flag "
+  prompt_segment $color $PRIMARY_FG "$BRANCH $si$flag "
 }
 
 

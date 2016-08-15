@@ -8,9 +8,11 @@ export LOCAL_ADMIN_SCRIPTS=/usr/facebook/ops/rc
 source "$LOCAL_ADMIN_SCRIPTS"/master.zshrc
 
 source ~/scm-prompt
+# source "$LOCAL_ADMIN_SCRIPTS"/scm-prompt
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+alias ls='ls --color=auto -F'
