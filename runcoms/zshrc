@@ -4,6 +4,10 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
+export LOCAL_ADMIN_SCRIPTS=/usr/facebook/ops/rc
+source "$LOCAL_ADMIN_SCRIPTS"/master.zshrc
+
+
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
