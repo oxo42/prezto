@@ -83,21 +83,25 @@ prompt_fbscm() {
   local branch=$parts[1]
   local flag=$parts[2]
 
+  local symbol
+
   if [[ $HGPROMPT_INFO =~ '!' ]] ; then
     # Modified
-    flag="$flag$DELTA"
+    [[ -z $symbol ]] && symbol=" "
+    symbol="$symbol$DELTA"
     color='yellow'
   fi
   if [[ $HGPROMPT_INFO =~ '\?' ]] ; then
     # Untracked
-    flag="${flag}$SIGMA"
+    [[ -z $symbol ]] && symbol=" "
+    symbol="${symbol}$SIGMA"
     color='yellow'
   fi
 
   if [[ -n $flag ]] ; then
     flag=" $flag"
   fi
-  prompt_segment $color $PRIMARY_FG " $BRANCH $branch$flag "
+  prompt_segment $color $PRIMARY_FG " $BRANCH $branch$flag$symbol "
 }
 
 

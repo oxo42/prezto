@@ -17,5 +17,12 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 alias ls='ls --color=auto -F'
+export LESS='-r'
+export LESSOPEN='| ~/bin/lessfilter.sh %s'
 export EDITOR=vim
 export VISUAL=vim
+
+for comp in arcanist argcomplete buck entschema flow smcc ; do
+    source $LOCAL_ADMIN_SCRIPTS/bash-completion/$comp
+done
+
