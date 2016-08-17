@@ -31,6 +31,8 @@ PRIMARY_FG=black
 # Characters
 SEGMENT_SEPARATOR="\ue0b0"
 PLUSMINUS="\u00b1"
+DELTA="\u0394" # Δ
+SIGMA="\u03a3" # Σ
 BRANCH="\ue0a0"
 DETACHED="\u27a6"
 CROSS="\u2718"
@@ -73,45 +75,29 @@ prompt_context() {
   prompt_segment $PRIMARY_FG default "%{%F{blue}%}%n%{%F{red}%}@%{%F{green}%}%m%f"
 }
 
-# Git: branch/detached head, dirty status
-prompt_git() {
-  local color ref
-  is_dirty() {
-    test -n "$(git status --porcelain --ignore-submodules)"
-  }
-  ref="$vcs_info_msg_0_"
-  if [[ -n "$ref" ]]; then
-    if is_dirty; then
-      color=yellow
-      ref="${ref} $PLUSMINUS"
-    else
-      color=green
-      ref="${ref} "
-    fi
-    if [[ "${ref/.../}" == "$ref" ]]; then
-      ref="$BRANCH $ref"
-    else
-      ref="$DETACHED ${ref/.../}"
-    fi
-    prompt_segment $color $PRIMARY_FG
-    print -Pn " $ref"
-  fi
-}
-
+# Facebook SCM
 prompt_fbscm() {
   local color='green'
-  local si=$(_dotfiles_scm_info %s)
-  [[ -z $si ]] && return
-  local parts=(${(@s/|/)si})
+  [[ -z $DOTFILES_SCM_INFO ]] && return
+  local parts=(${(@s/|/)DOTFILES_SCM_INFO})
   local branch=$parts[1]
   local flag=$parts[2]
-  if [[ "x$flag" = "xUPDATE_NEEDED" ]] ; then
-    flag=" $PLUSMINUS"
+
+  if [[ $HGPROMPT_INFO =~ '!' ]] ; then
+    # Modified
+    flag="$flag$DELTA"
     color='yellow'
-  elif [[ -n $flag ]] ; then
+  fi
+  if [[ $HGPROMPT_INFO =~ '\?' ]] ; then
+    # Untracked
+    flag="${flag}$SIGMA"
+    color='yellow'
+  fi
+
+  if [[ -n $flag ]] ; then
     flag=" $flag"
   fi
-  prompt_segment $color $PRIMARY_FG "$BRANCH $si$flag "
+  prompt_segment $color $PRIMARY_FG " $BRANCH $branch$flag "
 }
 
 
@@ -162,13 +148,17 @@ prompt_fbox_main() {
   prompt_jobs
   prompt_context
   prompt_dir
-  prompt_git
   prompt_fbscm
   prompt_end
 }
 
 prompt_fbox_precmd() {
-  vcs_info
+  DOTFILES_SCM_INFO=$(_dotfiles_scm_info %s)
+  if [[ -n $DOTFILES_SCM_INFO ]] ; then 
+    HGPROMPT_INFO=$(hg prompt "{status|modified|unknown}" 2>/dev/null )
+  else
+    HGPROMPT_INFO=""
+  fi
   PROMPT='%{%f%b%k%}$(prompt_fbox_main)
 %(!.#.$) '
   RPROMPT='%F{blue}[%F{green}%D{%H:%M:%S}%F{blue}]%f'
@@ -177,16 +167,10 @@ prompt_fbox_precmd() {
 
 prompt_fbox_setup() {
   autoload -Uz add-zsh-hook
-  autoload -Uz vcs_info
 
   prompt_opts=(cr subst percent)
 
   add-zsh-hook precmd prompt_fbox_precmd
-
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes false
-  zstyle ':vcs_info:git*' formats '%b'
-  zstyle ':vcs_info:git*' actionformats '%b (%a)'
 }
 
 prompt_fbox_setup "$@"

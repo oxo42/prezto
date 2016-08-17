@@ -5,10 +5,11 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 export LOCAL_ADMIN_SCRIPTS=/usr/facebook/ops/rc
-source "$LOCAL_ADMIN_SCRIPTS"/master.zshrc
+FB_NO_ALIASES=true
+source $LOCAL_ADMIN_SCRIPTS/master.zshrc
 
 source ~/scm-prompt
-# source "$LOCAL_ADMIN_SCRIPTS"/scm-prompt
+# source $LOCAL_ADMIN_SCRIPTS/scm-prompt
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -16,3 +17,5 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 alias ls='ls --color=auto -F'
+export EDITOR=vim
+export VISUAL=vim
