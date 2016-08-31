@@ -77,31 +77,44 @@ prompt_context() {
 
 # Facebook SCM
 prompt_fbscm() {
-  local color='green'
-  [[ -z $DOTFILES_SCM_INFO ]] && return
-  local parts=(${(@s/|/)DOTFILES_SCM_INFO})
-  local branch=$parts[1]
-  local flag=$parts[2]
+  [[ -z $FB_SCM_TYPE ]] && return
 
+  local color='green'
   local symbol
 
-  if [[ $HGPROMPT_INFO =~ '!' ]] ; then
+  if [[ $FB_SCM_TYPE = 'hg' ]] ; then
+    if [[ -z $FB_SCM_INFO ]] ; then
+      color='green'
+    else
+      color='yellow'
+    fi
+  fi
+  if [[ $FB_SCM_TYPE = 'git' ]] ; then
+    if [[ -z $FB_SCM_INFO ]] ; then
+      color='104' # Purplish
+    else
+      color='166' # Orange
+    fi
+  fi
+
+  if [[ $FB_SCM_INFO =~ '!' ]] ; then
     # Modified
     [[ -z $symbol ]] && symbol=" "
     symbol="$symbol$DELTA"
-    color='yellow'
   fi
-  if [[ $HGPROMPT_INFO =~ '\?' ]] ; then
+  if [[ $FB_SCM_INFO =~ '\?' ]] ; then
     # Untracked
     [[ -z $symbol ]] && symbol=" "
     symbol="${symbol}$SIGMA"
-    color='yellow'
+  fi
+  if [[ $flag == 'HISTEDIT' ]] ; then
+    color='134' # purple
   fi
 
   if [[ -n $flag ]] ; then
     flag=" $flag"
   fi
-  prompt_segment $color $PRIMARY_FG " $BRANCH $branch$flag$symbol "
+  prompt_segment $color $PRIMARY_FG " $BRANCH $FB_SCM_BRANCH$flag$symbol "
 }
 
 
@@ -157,11 +170,31 @@ prompt_fbox_main() {
 }
 
 prompt_fbox_precmd() {
-  DOTFILES_SCM_INFO=$(_dotfiles_scm_info %s)
-  if [[ -n $DOTFILES_SCM_INFO ]] ; then 
-    HGPROMPT_INFO=$(hg prompt "{status|modified|unknown}" 2>/dev/null )
-  else
-    HGPROMPT_INFO=""
+  local dotfiles_scm_info=$(_dotfiles_scm_info %s)
+  FB_SCM_TYPE=""
+  FB_SCM_BRANCH=""
+  FB_SCM_STATE=""
+  FB_SCM_INFO=""
+  if [[ -n $dotfiles_scm_info ]] ; then
+    local parts=(${(@s/|/)dotfiles_scm_info})
+    FB_SCM_TYPE=$parts[1]
+    FB_SCM_BRANCH=$parts[2]
+    FB_SCM_STATE=$parts[3]
+    if [[ 'xhg' == "x$FB_SCM_TYPE" ]] ; then
+      FB_SCM_INFO=$(hg prompt "{status|modified|unknown}" 2>/dev/null )
+    fi
+    if [[ 'xgit' == "x$FB_SCM_TYPE" ]] ; then
+      local gitstatus=$(git status)
+      local gitchange=$(echo $gitstatus | ack 'modified:|deleted:|new file:')
+      if [[ -n $gitchange ]] ; then
+        FB_SCM_INFO="!"
+      fi
+
+      local untracked=$(echo $gitstatus | ack 'Untracked files:')
+      if [[ -n $untracked ]] ; then
+        FB_SCM_INFO="$FB_SCM_INFO ?"
+      fi
+    fi
   fi
   PROMPT='%{%f%b%k%}$(prompt_fbox_main)
 %(!.#.$) '
