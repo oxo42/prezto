@@ -81,6 +81,7 @@ prompt_fbscm() {
 
   local color='green'
   local symbol
+  local flag=$FB_SCM_STATE
 
   if [[ $FB_SCM_TYPE = 'hg' ]] ; then
     if [[ -z $FB_SCM_INFO ]] ; then
@@ -108,7 +109,7 @@ prompt_fbscm() {
     symbol="${symbol}$SIGMA"
   fi
   if [[ $flag == 'HISTEDIT' ]] ; then
-    color='134' # purple
+    color='90' # redish purple
   fi
 
   if [[ -n $flag ]] ; then
