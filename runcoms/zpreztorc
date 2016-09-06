@@ -1,4 +1,4 @@
-#
+# vim: ft=zsh sw=2 ts=2 et
 # Sets Prezto options.
 #
 # Authors:
@@ -33,6 +33,7 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
+  'syntax-highlighting' \
   'prompt'
 
 #
@@ -48,7 +49,7 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'emacs'
+zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Auto convert .... to ../..
 # zstyle ':prezto:module:editor' dot-expansion 'yes'
