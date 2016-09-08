@@ -38,3 +38,9 @@ function showcolors() {
 }
 
 setopt interactivecomments
+
+bindkey "^R" history-incremental-search-backward
+bindkey "^P" up-line-or-history
+bindkey "^N" down-line-or-history
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
