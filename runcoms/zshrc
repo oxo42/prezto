@@ -17,7 +17,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 alias ls='ls --color=auto -F'
-alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
+alias -g fwdproxy='http_proxy=fwdproxy.any:8080 https_proxy=fwdproxy.any:8080'
 alias -g N='2>&1 > /dev/null'
 alias -g GC='sort | uniq -c | sort -n'
 export LESS='-r'
