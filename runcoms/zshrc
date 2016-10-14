@@ -17,7 +17,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 alias ls='ls --color=auto -F'
-alias -g fwdproxy='http_proxy=fwdproxy.any:8080 https_proxy=fwdproxy.any:8080'
+alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
 alias -g N='2>&1 > /dev/null'
 alias -g GC='sort | uniq -c | sort -n'
 export LESS='-r'
@@ -26,21 +26,35 @@ export EDITOR=vim
 export VISUAL=vim
 
 for comp in arcanist argcomplete buck entschema flow smcc ; do
-    source $LOCAL_ADMIN_SCRIPTS/bash-completion/$comp
+  source $LOCAL_ADMIN_SCRIPTS/bash-completion/$comp
 done
 
 source ~/.drox/shellfuncs.sh
 
-function showcolors() {
-    for code in {000..255}; do
-        print -P -- "$code: %F{$code}Test%f";
-    done
+showcolors() {
+  for code in {000..255}; do
+    print -P -- "$code: %F{$code}Test%f";
+  done
+}
+
+hgaf() {
+  hg amend && hg amend --fixup
+}
+
+# History Search
+hs() {
+  fc -ilm $1 0
 }
 
 setopt interactivecomments
+unsetopt correct_all
+unsetopt correct
+
 
 bindkey "^R" history-incremental-search-backward
 bindkey "^P" up-line-or-history
 bindkey "^N" down-line-or-history
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
+
+export I_LUV_TMUX=1
