@@ -57,4 +57,6 @@ bindkey "^N" down-line-or-history
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
 
+bindkey '\e.' insert-last-word
+
 export I_LUV_TMUX=1
