@@ -30,6 +30,7 @@ setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing non-existent history.
+setopt HIST_NO_STORE             # Remove the history (fc -l) command from the history list when invoked
 
 #
 # Aliases
