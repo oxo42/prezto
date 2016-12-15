@@ -60,3 +60,6 @@ bindkey "^E" end-of-line
 bindkey '\e.' insert-last-word
 
 export I_LUV_TMUX=1
+
+export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
+
