@@ -17,6 +17,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 alias ls='ls --color=auto -F'
+alias rdssh='ssh -L 3390:localhost:3389'
 alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
 alias -g N='2>&1 > /dev/null'
 alias -g GC='sort | uniq -c | sort -n'
@@ -46,6 +47,10 @@ hs() {
   fc -ilm $1 0
 }
 
+ox-win2016() {
+  smcc ls-hosts sandcastle.capability.testing.win2016_testing
+}
+
 setopt interactivecomments
 unsetopt correct_all
 unsetopt correct
@@ -63,3 +68,5 @@ export I_LUV_TMUX=1
 
 export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
 
+# put ~/bin at the front of the path
+export PATH="~/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s)"
