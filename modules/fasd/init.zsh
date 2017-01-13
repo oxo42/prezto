@@ -51,7 +51,6 @@ function fasd_cd {
 
 # Changes the current working directory interactively.
 alias j='fasd_cd -d'     # jump
-alias a='fasd -a'        # any
 alias s='fasd -si'       # show / search / select
 # alias d='fasd -d'        # directory
 alias f='fasd -f'        # file
