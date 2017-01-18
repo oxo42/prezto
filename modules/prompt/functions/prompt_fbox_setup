@@ -76,9 +76,11 @@ prompt_context() {
   local short_hostname=${HOSTNAME%.*.*}
   local host_color='yellow'
   case $short_hostname in
-    'devbig097.lla1' | 'devvm1174.lla2' ) host_color='red' ;;
+    'devbig097.lla1' | 'devvm1174.lla2' ) host_color='blue' ;;
   esac
-  prompt_segment $PRIMARY_FG default "%{%F{$host_color}%}$short_hostname%f"
+  if [ $short_hostname != 'devbig097.lla1' ] ; then
+    prompt_segment $PRIMARY_FG default "%{%F{$host_color}%}$short_hostname%f"
+  fi
 }
 
 # Facebook SCM
@@ -135,7 +137,7 @@ prompt_dir() {
   else
     _prompt_sorin_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
   fi
-  prompt_segment blue $PRIMARY_FG " $_prompt_sorin_pwd "
+  prompt_segment blue $PRIMARY_FG " $pwd "
 }
 
 # Status:
