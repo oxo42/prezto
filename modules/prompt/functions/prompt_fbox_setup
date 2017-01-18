@@ -207,8 +207,7 @@ prompt_fbox_precmd() {
     fi
   fi
   PROMPT='%{%f%b%k%}$(prompt_fbox_main)
-%(!.#.$) '
-  RPROMPT='%F{blue}[%F{green}%D{%H:%M:%S}%F{blue}]%f'
+%F{blue}[%F{green}%D{%H:%M:%S}%F{blue}]%f %(!.#.$) '
   SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 }
 
