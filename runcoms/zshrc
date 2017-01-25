@@ -56,6 +56,12 @@ fb-virsh() {
   virsh -c "qemu+ssh://root@${1?}/system?no_tty=1" "${@:2}"
 }
 
+ox-make-zprezto () {
+  [ -d ~/.zprezto ] || git clone https://github.com/oxo42/prezto.git ~/.zprezto
+  cd ~/.zprezto && ./update.sh
+  cd ~/.zprezto && git remote set-url --push origin git@github.com:oxo42/prezto.git
+}
+
 setopt interactivecomments
 unsetopt correct_all
 unsetopt correct
