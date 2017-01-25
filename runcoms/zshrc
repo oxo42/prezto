@@ -21,6 +21,7 @@ alias rdssh='ssh -L 3390:localhost:3389'
 alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
 alias -g N='2>&1 > /dev/null'
 alias -g GC='sort | uniq -c | sort -n'
+alias s='sush'
 export LESS='-r'
 export LESSOPEN='| ~/bin/lessfilter.sh %s'
 export EDITOR=vim
@@ -51,6 +52,10 @@ ox-win2016() {
   smcc ls-hosts sandcastle.capability.testing.win2016_testing
 }
 
+fb-virsh() {
+  virsh -c "qemu+ssh://root@${1?}/system?no_tty=1" "${@:2}"
+}
+
 setopt interactivecomments
 unsetopt correct_all
 unsetopt correct
@@ -70,3 +75,5 @@ export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
 
 # put ~/bin at the front of the path
 export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s)"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
