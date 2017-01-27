@@ -128,13 +128,6 @@ prompt_fbscm() {
 # Dir: current working directory
 prompt_dir() {
   local pwd="${PWD/#$HOME/~}"
-
-  if [[ "$pwd" == (#m)[/~] ]]; then
-    _prompt_sorin_pwd="$MATCH"
-    unset MATCH
-  else
-    _prompt_sorin_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
-  fi
   prompt_segment blue $PRIMARY_FG " $pwd "
 }
 
@@ -155,8 +148,12 @@ prompt_status() {
 prompt_retval_status() {
   if [[ $RETVAL -ne 0 ]] ; then
     local signal="$(builtin kill -l $[$RETVAL - 128] 2> /dev/null)"
-    test "$signal" && signal=" ($signal)"
-    prompt_segment $PRIMARY_FG default "%{%F{red}%}($RETVAL$signal)%f "
+    if [ "$signal" = '-1' ] ; then
+      signal=''
+    else
+      signal=" ($signal)"
+    fi
+    prompt_segment 172 $PRIMARY_FG "[$RETVAL$signal] "
   fi
 }
 
