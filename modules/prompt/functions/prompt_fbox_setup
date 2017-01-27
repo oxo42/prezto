@@ -78,9 +78,7 @@ prompt_context() {
   case $short_hostname in
     'devbig097.lla1' | 'devvm1174.lla2' ) host_color='blue' ;;
   esac
-  if [ $short_hostname != 'devbig097.lla1' ] ; then
-    prompt_segment $PRIMARY_FG default "%{%F{$host_color}%}$short_hostname%f"
-  fi
+  prompt_segment $PRIMARY_FG default "%{%F{$host_color}%}$short_hostname%f"
 }
 
 # Facebook SCM
