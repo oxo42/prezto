@@ -84,6 +84,7 @@ bindkey '\e.' insert-last-word
 export I_LUV_TMUX=1
 
 export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
+export CACHEDIR=/dev/shm/fbcode-vimcache
 
 # put ~/bin at the front of the path
 export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s)"
