@@ -67,6 +67,7 @@ ox-update-shell () {
   cd ~/.zprezto && git remote set-url --push origin git@github.com:oxo42/prezto.git
   [ -d ~/.fzf ] || git clone https://github.com/junegunn/fzf.git ~/.fzf
   cd ~/.fzf && fwdproxy ./install --bin
+  cd ~/local && hg clone https://bitbucket.org/sjl/hg-prompt || true
   popd
 }
 
