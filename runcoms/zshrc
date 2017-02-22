@@ -91,4 +91,5 @@ export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
 # put ~/bin at the front of the path
 export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s)"
 
+export FZF_DEFAULT_OPTS='--exact'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
