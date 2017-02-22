@@ -65,6 +65,8 @@ ox-update-shell () {
   [ -d ~/.zprezto ] || git clone https://github.com/oxo42/prezto.git ~/.zprezto
   cd ~/.zprezto && ./update.sh
   cd ~/.zprezto && git remote set-url --push origin git@github.com:oxo42/prezto.git
+  [ -d ~/.fzf ] || git clone https://github.com/junegunn/fzf.git ~/.fzf
+  cd ~/.fzf && fwdproxy ./install --bin
   popd
 }
 
@@ -84,7 +86,6 @@ bindkey '\e.' insert-last-word
 export I_LUV_TMUX=1
 
 export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
-export CACHEDIR=/dev/shm/fbcode-vimcache
 
 # put ~/bin at the front of the path
 export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s)"
