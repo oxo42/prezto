@@ -3,7 +3,7 @@
 # Styled like the default prompt in Red Hat 5.1
 #
 prompt_redhat_setup () {
-  PS1='$ '
+  PS1=$'\n$ '
   PS2="> "
   RPROMPT=""
 
