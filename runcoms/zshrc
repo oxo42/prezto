@@ -4,6 +4,7 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
+start=$(date +%s)
 export LOCAL_ADMIN_SCRIPTS=/usr/facebook/ops/rc
 FB_NO_ALIASES=true
 source $LOCAL_ADMIN_SCRIPTS/master.zshrc
@@ -24,6 +25,9 @@ alias -g GC='sort | uniq -c | sort -n'
 alias s='sush'
 alias slup='hg-sl-up'
 alias acff='arc cleanup-features --force'
+alias pll='pl --last-line-only --buffer'
+alias ¬=pll
+
 export LESS='FRKX'
 export LESSOPEN='| ~/bin/lessfilter.sh %s'
 export EDITOR=vim
@@ -48,6 +52,12 @@ hgaf() {
   hg amend && hg amend --fixup
 }
 
+fog_list_serf() {
+  parent_tag=$(serfcli get ${1:?} --fields asset_tag --format short --no-header)
+  shift
+  serfcli get parent_asset_tag=$parent_tag $*
+}
+
 # History Search
 hs() {
   fc -ilm $1 0
@@ -57,8 +67,17 @@ ox-win2016() {
   smcc ls-hosts sandcastle.capability.testing.win2016_testing
 }
 
+serf_undrain() {
+  serfcli set --clowntown $1 maintenance_status=NONE
+}
+
 fb-virsh() {
   virsh -c "qemu+ssh://root@${1?}/system?no_tty=1" "${@:2}"
+}
+
+fbpkg_pt() {
+  fbpkg preserve --yes $1
+  fbpkg tag --yes $1 $2
 }
 
 ox-update-shell () {
@@ -94,3 +113,5 @@ export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USE
 
 export FZF_DEFAULT_OPTS='--exact'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+end=$(date +%s)
+echo "zpreztozshrc $start runtime $((end-start))" >> /tmp/joxley/zprof

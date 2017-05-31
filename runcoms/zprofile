@@ -8,6 +8,7 @@
 #
 # Browser
 #
+start=$(date +%s)
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
@@ -72,3 +73,5 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+end=$(date +%s)
+echo "zprofile $start runtime $((end-start))" >> /tmp/joxley/zprof
