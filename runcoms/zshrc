@@ -77,7 +77,7 @@ fb-virsh() {
 
 fbpkg_pt() {
   fbpkg preserve --yes $1
-  fbpkg tag --yes $1 $2
+  fbpkg tag --yes $1 ${2:-stable}
 }
 
 ox-update-shell () {
