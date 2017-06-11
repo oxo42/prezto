@@ -80,6 +80,11 @@ fbpkg_pt() {
   fbpkg tag --yes $1 ${2:-stable}
 }
 
+solo_prod() {
+  chef-solo-build $1
+  fbpkg_pt chef.solo.$1:manual_$USER
+}
+
 ox-update-shell () {
   pushd
   [ -d ~/.zprezto ] || git clone https://github.com/oxo42/prezto.git ~/.zprezto
