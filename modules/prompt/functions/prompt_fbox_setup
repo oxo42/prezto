@@ -76,7 +76,8 @@ prompt_context() {
   local short_hostname=${HOSTNAME%.*.*}
   local host_color='yellow'
   case $short_hostname in
-    'devbig021.lla2' | 'devvm178.lla2' ) host_color='blue' ;;
+    'devbig021.lla2' ) host_color='208' ;;
+    'devvm178.lla2' ) host_color='blue' ;;
     'devbig097.lla1' ) host_color='5' ;;
     'devbig147.lla1' ) host_color='purple' ;;
   esac
