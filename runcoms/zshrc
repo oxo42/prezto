@@ -38,63 +38,7 @@ for comp in arcanist argcomplete buck entschema flow smcc ; do
 done
 
 source ~/.drox/shellfuncs.sh
-
-showcolors() {
-  for i in {0..255} ; do
-    printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
-    if (( i == 15 )) || (( i > 15 )) && (( (i-15) % 6 == 0 )); then
-      printf "\n";
-    fi
-  done
-}
-
-hgaf() {
-  hg amend && hg amend --fixup
-}
-
-fog_list_serf() {
-  parent_tag=$(serfcli get ${1:?} --fields asset_tag --format short --no-header)
-  shift
-  serfcli get parent_asset_tag=$parent_tag $*
-}
-
-# History Search
-hs() {
-  fc -ilm $1 0
-}
-
-ox-win2016() {
-  smcc ls-hosts sandcastle.capability.testing.win2016_testing
-}
-
-serf_undrain() {
-  serfcli set --clowntown $1 maintenance_status=NONE
-}
-
-fb-virsh() {
-  virsh -c "qemu+ssh://root@${1?}/system?no_tty=1" "${@:2}"
-}
-
-fbpkg_pt() {
-  fbpkg preserve --yes $1
-  fbpkg tag --yes $1 ${2:-stable}
-}
-
-solo_prod() {
-  chef-solo-build $1
-  fbpkg_pt chef.solo.$1:manual_$USER
-}
-
-ox-update-shell () {
-  pushd
-  [ -d ~/.zprezto ] || git clone https://github.com/oxo42/prezto.git ~/.zprezto
-  cd ~/.zprezto && ./update.sh
-  cd ~/.zprezto && git remote set-url --push origin git@github.com:oxo42/prezto.git
-  [ -d ~/.fzf ] || git clone https://github.com/junegunn/fzf.git ~/.fzf
-  cd ~/.fzf && fwdproxy ./install --bin
-  cd ~/local && hg clone https://bitbucket.org/sjl/hg-prompt || true
-  popd
-}
+source ~/.zsh.facebook
 
 setopt interactivecomments
 unsetopt correct_all
