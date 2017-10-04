@@ -4,7 +4,6 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-start=$(date +%s)
 export LOCAL_ADMIN_SCRIPTS=/usr/facebook/ops/rc
 FB_NO_ALIASES=true
 source $LOCAL_ADMIN_SCRIPTS/master.zshrc
@@ -26,7 +25,8 @@ alias s='sush'
 alias slup='hg-sl-up'
 alias acff='arc cleanup-features --force'
 alias pll='pl --last-line-only --buffer'
-alias ¬=pll
+alias cal='cal -3 -m'
+alias tree='tree -CF'
 
 export LESS='FRKX'
 export LESSOPEN='| ~/bin/lessfilter.sh %s'
@@ -58,9 +58,9 @@ export I_LUV_TMUX=1
 export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
 
 # put ~/bin at the front of the path
-export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s)"
+export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s):/home/joxley/virtualenvs/pydev/bin"
 
+export FZF_ALT_C_COMMAND='fasd -ld'
+export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_DEFAULT_OPTS='--exact'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-end=$(date +%s)
-echo "zpreztozshrc $start runtime $((end-start))" >> /tmp/joxley/zprof
