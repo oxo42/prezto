@@ -8,7 +8,6 @@
 #
 # General
 #
-start=$(date +%s)
 export COMPDUMPFILE=~/local/.zcompdump
 
 # Set case-sensitivity for completion, history lookup, etc.
@@ -159,6 +158,3 @@ zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
-
-end=$(date +%s)
-echo "zpreztorc $start runtime $((end-start))" >> /tmp/joxley/zprof
