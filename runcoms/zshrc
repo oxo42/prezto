@@ -21,12 +21,13 @@ alias rdssh='ssh -L 3390:localhost:3389'
 alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
 alias -g N='2>&1 > /dev/null'
 alias -g GC='sort | uniq -c | sort -n'
-alias s='sush'
+alias s='sshrc -l root'
 alias slup='hg-sl-up'
 alias acff='arc cleanup-features --force'
 alias pll='pl --last-line-only --buffer'
 alias cal='cal -3 -m'
 alias tree='tree -CF'
+alias countcol="tr ' ' '\n' | nl"
 
 export LESS='FRKX'
 export LESSOPEN='| ~/bin/lessfilter.sh %s'
@@ -63,4 +64,5 @@ export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USE
 export FZF_ALT_C_COMMAND='fasd -ld'
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_DEFAULT_OPTS='--exact'
+export FZF_TMUX=1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
