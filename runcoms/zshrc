@@ -17,7 +17,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 alias ls='ls --color=auto -F'
-alias rdssh='ssh -L 3390:localhost:3389'
 alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
 alias -g N='2>&1 > /dev/null'
 alias -g GC='sort | uniq -c | sort -n'
