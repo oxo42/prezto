@@ -107,15 +107,10 @@ prompt_fbscm() {
     fi
   fi
 
-  if [[ $FB_SCM_INFO =~ 'M' ]] ; then
-    # Modified
-    [[ -z $symbol ]] && symbol=" "
-    symbol="${symbol}M"
-  fi
-  if [[ $FB_SCM_INFO =~ '\?' ]] ; then
-    # Untracked
-    [[ -z $symbol ]] && symbol=" "
-    symbol="${symbol}$SIGMA"
+  if [[ -z $FB_SCM_INFO ]] ; then
+    symbol=""
+  else
+    symbol=" $FB_SCM_INFO"
   fi
   if [[ $flag == 'HISTEDIT' ]] ; then
     color='90' # redish purple
@@ -124,7 +119,7 @@ prompt_fbscm() {
   if [[ -n $flag ]] ; then
     flag=" $flag"
   fi
-  prompt_segment $color $PRIMARY_FG " $BRANCH $FB_SCM_BRANCH$flag $FB_SCM_INFO "
+  prompt_segment $color $PRIMARY_FG " $BRANCH $FB_SCM_BRANCH$flag$symbol "
 }
 
 
