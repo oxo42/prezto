@@ -107,10 +107,10 @@ prompt_fbscm() {
     fi
   fi
 
-  if [[ $FB_SCM_INFO =~ '!' ]] ; then
+  if [[ $FB_SCM_INFO =~ 'M' ]] ; then
     # Modified
     [[ -z $symbol ]] && symbol=" "
-    symbol="$symbol$DELTA"
+    symbol="${symbol}M"
   fi
   if [[ $FB_SCM_INFO =~ '\?' ]] ; then
     # Untracked
@@ -124,7 +124,7 @@ prompt_fbscm() {
   if [[ -n $flag ]] ; then
     flag=" $flag"
   fi
-  prompt_segment $color $PRIMARY_FG " $BRANCH $FB_SCM_BRANCH$flag$symbol "
+  prompt_segment $color $PRIMARY_FG " $BRANCH $FB_SCM_BRANCH$flag $FB_SCM_INFO "
 }
 
 
@@ -196,7 +196,7 @@ prompt_fbox_precmd() {
     FB_SCM_BRANCH=$parts[2]
     FB_SCM_STATE=$parts[3]
     if [[ 'xhg' == "x$FB_SCM_TYPE" ]] ; then
-      FB_SCM_INFO=$(hg prompt "{status|modified|unknown}" 2>/dev/null )
+      FB_SCM_INFO=$(hgprompt 2>/dev/null )
     fi
     if [[ 'xgit' == "x$FB_SCM_TYPE" ]] ; then
       local gitstatus=$(git status)
@@ -207,7 +207,7 @@ prompt_fbox_precmd() {
 
       local untracked=$(echo $gitstatus | ack 'Untracked files:')
       if [[ -n $untracked ]] ; then
-        FB_SCM_INFO="$FB_SCM_INFO ?"
+        FB_SCM_INFO="$fb_scm_iNFO ?"
       fi
     fi
   fi

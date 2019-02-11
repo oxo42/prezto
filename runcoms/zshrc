@@ -27,6 +27,8 @@ alias pll='pl --last-line-only --buffer'
 alias cal='cal -3 -m'
 alias tree='tree -CF'
 alias countcol="tr ' ' '\n' | nl"
+alias cdtmp='cd $(mktemp -d)'
+alias ow='paragon --config one_world_prod'
 
 export LESS='FRKX'
 export LESSOPEN='| ~/bin/lessfilter.sh %s'

@@ -10,7 +10,7 @@
 # Variables
 #
 
-HISTFILE="/home/joxley/local/.zhistory"     # The path to the history file.
+HISTFILE="/home/joxley/.zhistory.$HOSTNAME"     # The path to the history file.
 HISTSIZE=100000000                 # The maximum number of events to save in the internal history.
 SAVEHIST=100000000                 # The maximum number of events to save in the history file.
 
