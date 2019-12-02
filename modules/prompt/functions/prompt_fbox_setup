@@ -202,7 +202,7 @@ prompt_fbox_precmd() {
 
       local untracked=$(echo $gitstatus | ack 'Untracked files:')
       if [[ -n $untracked ]] ; then
-        FB_SCM_INFO="$fb_scm_iNFO ?"
+        FB_SCM_INFO="$FB_SCM_INFO ?"
       fi
     fi
   fi
