@@ -41,6 +41,7 @@ done
 
 source ~/.drox/shellfuncs.sh
 source ~/.zsh.facebook
+source ~/.zsh.custom
 
 setopt interactivecomments
 unsetopt correct_all
