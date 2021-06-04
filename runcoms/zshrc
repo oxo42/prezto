@@ -4,40 +4,12 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-export LOCAL_ADMIN_SCRIPTS=/usr/facebook/ops/rc
-FB_NO_ALIASES=true
-source $LOCAL_ADMIN_SCRIPTS/master.zshrc
-
-source ~/scm-prompt
-# source $LOCAL_ADMIN_SCRIPTS/scm-prompt
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-alias ls='ls --color=auto -F'
-alias -g fwdproxy='http_proxy=fwdproxy:8080 https_proxy=fwdproxy:8080'
-alias -g N='2>&1 > /dev/null'
-alias -g GC='sort | uniq -c | sort -n'
-alias s='sshrc -l root'
-alias slup='hg-sl-up'
-alias acff='arc cleanup-features --force'
-alias pll='pl --last-line-only --buffer'
-alias cal='cal -3 -m'
-alias tree='tree -CF'
-alias countcol="tr ' ' '\n' | nl"
-alias cdtmp='cd $(mktemp -d)'
-alias ow='paragon --config one_world_prod'
-
-export LESS='FRKX'
-export LESSOPEN='| ~/bin/lessfilter.sh %s'
-export EDITOR=vim
-export VISUAL=vim
-
-for comp in arcanist argcomplete buck entschema flow smcc ; do
-  source $LOCAL_ADMIN_SCRIPTS/bash-completion/$comp
-done
 
 source ~/.drox/shellfuncs.sh
 source ~/.zsh.facebook
@@ -61,7 +33,7 @@ export I_LUV_TMUX=1
 export HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..|hs)"
 
 # put ~/bin at the front of the path
-export PATH="/home/$USER/bin:$(echo $PATH | sed 's/:/\n/g' | grep -v "/home/$USER/bin" | paste -d: -s):/home/joxley/virtualenvs/pydev/bin"
+export PATH="/home/$USER/bin:$(echo $PATH | tr : '\n' | grep -v "/home/$USER/bin" | paste -sd:):/home/joxley/virtualenvs/pydev/bin"
 
 export FZF_ALT_C_COMMAND='fasd -ld'
 export FZF_DEFAULT_COMMAND='ag -g ""'
