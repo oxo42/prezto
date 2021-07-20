@@ -77,7 +77,7 @@ prompt_context() {
   local host_color='yellow'
   case $short_hostname in
     'devbig021.lla2' ) host_color='208' ;;
-    'devvm494.prn3' ) host_color='5' ;; # purple
+    'devvm4196.prn0' ) host_color='5' ;; # purple
   esac
   prompt_segment $PRIMARY_FG default "%{%F{$host_color}%}$short_hostname%f"
 }
